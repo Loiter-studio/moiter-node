@@ -14,6 +14,42 @@
 <script>
 socket = io.connect("http://localhost:3001");
 
+/*
+socket.emit("create-user", {
+	"_id": 1364285568647,
+	"isLogined": false,
+	"name": "wayzh",
+	"password": "123",
+	"position": "diu",
+	"sex": "female",
+	"about": "撸神",
+	"project_id": [
+		1364284327759, 
+		1364303294209, 
+		1364303341662, 
+		1364303405228, 
+		1364303476321
+	]
+});
+
+socket.on("create-user-response", function (data) {
+	console.log(data);
+});
+*/
+
+/*
+socket.emit("request-user", 1364285568647);
+socket.on("request-user-response", function (data) {
+	console.log(data);
+});
+*/
+
+socket.emit("request-login", {name: "wayzh", password: "123"});
+socket.on("request-login-response", function (data) {
+	console.log(data);
+});
+
+/*
 socket.emit("create-project", { "endTime": "20133252130",
 							   "name": "魏志华被爆据",
 							   "startTime": "20133252102",
@@ -24,7 +60,7 @@ socket.emit("create-project", { "endTime": "20133252130",
 socket.on("create-project-response", function (data) {
 	console.log(data);
 });
-
+*/
 
 /*
 socket.emit("create-stage",{

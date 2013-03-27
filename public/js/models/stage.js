@@ -15,6 +15,7 @@ app.Stage = Backbone.Model.extend({
 		endTime: '',
 		status: 'Unfinished',
 		summary: '',
+		index: '',
 		task: new Array()
 	},
 	

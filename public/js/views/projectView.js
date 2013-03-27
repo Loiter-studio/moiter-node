@@ -19,16 +19,6 @@ app.ProjectView = Backbone.View.extend({
 	show: function (e) {
 		//var project_id = this.model.get('_id');
 		var project_id = "123456";
-		
-		socket.emit("request-project", project_id);
-		socket.on("request-project-response", function(data){
-			console.log(data);
-			//
-			//
-			//
-			//
-			//
-		});
 	},
 	
 	render: function () {
