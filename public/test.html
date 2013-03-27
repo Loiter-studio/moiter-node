@@ -1,0 +1,63 @@
+<!DOCTYPE html><!--HTML5 doctype-->
+<html>
+<head>
+<title>JQ Holdem</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+<script type="text/javascript" charset="utf-8" src="js/socket.io.js"></script>
+
+</head>
+<body></body>
+
+<script>
+socket = io.connect("http://localhost:3001");
+
+socket.emit("create-project", { "endTime": "20133252130",
+							   "name": "魏志华被爆据",
+							   "startTime": "20133252102",
+							   "status": "Unfinished",
+							   "summary": "Good" 
+});
+
+socket.on("create-project-response", function (data) {
+	console.log(data);
+});
+
+
+/*
+socket.emit("create-stage",{
+   "project_id": "p123456",
+   "user_id": "u1324",
+   "startTime": "20133252102",
+   "endTime": "20133252130",
+   "name": "Killwayzh",   
+   "status": "Unfinished",
+   "summary": "Monster Kill",
+   "task": [{
+				time: '20133261610',
+				user_id: 'u1324',
+				content: '砍掉魏志华的头',
+				status: 'Finished',
+				deadline: '2013326'
+			},{
+				time: '20133261611',
+				user_id: 'u1324',
+				content: '砍掉魏志华的挤挤',
+				status: 'Unfinished',
+				deadline: '2013327'
+			}]
+});
+socket.on("create-stage-response",function  (data) {
+	// body...
+	console.log(data);
+});
+
+
+socket.emit("request-stage",{_id:1364285568656});
+socket.on("request-stage-response",function  (data) {
+	// body...
+	console.log(data);
+});*/
+</script>
