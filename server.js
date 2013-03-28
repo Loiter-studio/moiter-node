@@ -13,6 +13,7 @@ var app = express();
 /**
  * socket io
  */
+
 var io = require('socket.io').listen(3001);
 
 app.configure(function(){
@@ -28,6 +29,57 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
+app.post("/wechat",wechat('test-token',
+	wechat.text(function (message,req,res,next){
+
+		db.collection("users").findOne({"_id":message.FromUserName},function (err,result){
+			if(result){
+				if(result.name == ""){
+					var password = Math.floor(Math.random()*100000+100000);
+					db.collection("users").update({"_id":message.FromUserName},{$set:{"name":message.content,"password":password}});
+					res.reply("注册成功，您的密码是"+password+",请记住您的密码并及时修改");
+				}
+				else if(message.content == "login"){
+					res.reply({url:"/login/"+message.FromUserName});
+				}
+				else
+					res.reply("您是想登陆吗，请输入login");
+			}
+			else{
+				//验证码为“暗号”
+				if(message.content == "暗号"){
+					var user = {
+						"_id": message.FromUserName;
+						"name" : "",
+						"project_id": [],
+						"isLogin": false,
+						"sex" : "",
+						"about":""
+						"password":0000,
+					};
+					db.collection("users").insert(user);
+					res.reply("请输入您的用户名，我们会随机生成个密码给你，请您登陆网页版之后修改密码");
+				}
+				else
+					res.reply("验证码错误，请从新输入");
+			}
+		});
+	}).event(function (message,req,res,next){
+		if(message.Event = "subscribe"){
+			res.reply("欢迎加入我公司管理项目系统，请输入验证码");
+		}
+	})
+));
+
+//张宏得解析下拿到user_id，然后请求数据
+app.get('/login/:user_id',function (req,res){
+	//socket.emit({"_id":req.params.user_id});
+	console.log(req.params.user_id);
+	res.sendfile(__dirname+'/public/index.html');
+});
+
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
@@ -51,6 +103,15 @@ io.sockets.on('connection' , function (socket) {
 		});
 	});
 
+	socket.on('create-user',function(data){
+		db.collection('users').insert(data);
+		db.collection('users').findOne({"_id":data._id},function(err , result){
+			if(result)
+				socket.emit('create-user-response',{'code':'success','_id':result._id});
+			else
+				console.emit("create-user-response",{"code":'failed','message' : 'create user failde'});
+		});
+	});
 	//create company，project，stage，task
 	socket.on('create-company' , function (data){
 		if(data._id === undefined)
@@ -82,17 +143,22 @@ io.sockets.on('connection' , function (socket) {
 			if(result){
 				db.collection('companies').update({'_id':data.company_id},{$addToSet:{project_id:result._id}});
 				db.collection('companies').findOne({'_id':data.company_id,"project_id":result._id},function(err,result_1){
-					if(result_1)
+					if(result_1){
 						socket.emit("create-project-response",{'code':'success',"_id":result._id});
+						db.collection('users').update({'_id':data.user_id},{$addToSet:{project_id:{'pid':result._id,"pname":result.name}}});
+					}
 					else{
 						db.collection('projects').remove({'_id':result._id},true);
 						socket.emit("create-project-response",{'code':'failed','message':"create project failed"});
 					}
 				});
+
+
 			}
 			else
 				socket.emit("create-project-response",{'code':'failed','message':"create project failed"});
 		});
+
 	});
 
 	socket.on('create-stage', function (data){
@@ -122,7 +188,12 @@ io.sockets.on('connection' , function (socket) {
 	socket.on('request-user', function (data) {
 		db.collection('users').findOne({'_id': data._id},function(err,result){
 			if(result)
-				socket.emit('request-user-response',result);
+				socket.emit('request-user-response',{"_id" : result._id,
+													 "project_id" : result.project_id,
+													 "isLogin" : result.isLogin,
+													 "name" : result.name,
+													 "sex" : result.sex,
+													 "about" : result.about });
 		});
 	});
 
