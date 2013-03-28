@@ -44,10 +44,12 @@ socket.on("request-user-response", function (data) {
 });
 */
 
+/*
 socket.emit("request-login", {name: "wayzh", password: "123"});
 socket.on("request-login-response", function (data) {
 	console.log(data);
 });
+*/
 
 /*
 socket.emit("create-project", { "endTime": "20133252130",
@@ -68,32 +70,33 @@ socket.emit("create-stage",{
    "user_id": "u1324",
    "startTime": "20133252102",
    "endTime": "20133252130",
-   "name": "Killwayzh",   
+   "name": "测试魏志华",   
    "status": "Unfinished",
-   "summary": "Monster Kill",
+   "summary": "测试",
    "task": [{
-				time: '20133261610',
+				time: '20133281610',
 				user_id: 'u1324',
-				content: '砍掉魏志华的头',
+				content: '这是测试',
 				status: 'Finished',
 				deadline: '2013326'
 			},{
-				time: '20133261611',
+				time: '20133281611',
 				user_id: 'u1324',
-				content: '砍掉魏志华的挤挤',
+				content: '还是测试',
 				status: 'Unfinished',
-				deadline: '2013327'
+				deadline: '2013329'
 			}]
 });
 socket.on("create-stage-response",function  (data) {
 	// body...
 	console.log(data);
 });
+*/
 
-
-socket.emit("request-stage",{_id:1364285568656});
+socket.emit("request-stage",{project_id:1364303405228});
 socket.on("request-stage-response",function  (data) {
 	// body...
 	console.log(data);
-});*/
+	console.log(data[0]);
+});
 </script>

@@ -7,8 +7,7 @@ app.ProjectView = Backbone.View.extend({
 	className: 'pro-menu-item',
 	template: _.template($("#project-template").html()),
 	events: {
-		//'click .projectListItem': 'show'
-		//'click .del': 'clear'
+		'click #proj-list-item': 'show'		//when click, call function "show"
 	},
 	
 	initialize: function () {
@@ -16,9 +15,13 @@ app.ProjectView = Backbone.View.extend({
 		this.model.bind('destroy', this.remove, this);
 	},
 	
-	show: function (e) {
-		//var project_id = this.model.get('_id');
-		var project_id = "123456";
+	show: function () {
+		//get the project id
+		var project_id = this.model.get("_id");
+		console.log(project_id);
+		
+		//request project by socket.io
+		socket.emit("request-project",{_id:project_id});
 	},
 	
 	render: function () {

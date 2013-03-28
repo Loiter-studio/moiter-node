@@ -383,7 +383,8 @@ body{
 #pro-menu-head2 li{
 	position: relative;
 	top:6px;
-	left:20px;
+	left:0px;
+	padding-left: 20px;
 	font-family:"微软雅黑" Helvetica;
 	font-size:15px;
 	color:#999999;
@@ -406,7 +407,8 @@ body{
 .pro-menu-item li{
 	position:relative;
 	top:0px;
-	left:20px;
+	left:0px;
+	padding-left: 20px;
 	
 	font-family:'微软雅黑' Helvetica;
 	font-size:18px;
@@ -415,6 +417,10 @@ body{
 	color:#E6E6E6;
 	text-shadow:0px 2px 2px 2px black;
 	list-style-type:none;
+}
+
+#proj-list-item {
+	cursor: Pointer;
 }
 
 /*the right slides*/

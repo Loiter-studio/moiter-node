@@ -12,15 +12,18 @@ app.MainView = Backbone.View.extend({
 	},
 	
 	initialize: function () {
-		//显示用户信息
+		//show user info
 		$('#front-header-producer').html(currentUser.get("name"));
 		
-		//绑定事件
+		//bind events
 		app.Stages.bind('add', this.addOne, this);
 		app.Stages.bind('reset', this.addAll, this);
 		//app.Stages.fetch();
 		
-		
+		//request the newest project info and show
+		var pListLength = currentUser.get("project_id").length;
+		var currentPid = currentUser.get("project_id")[pListLength-1].pid;
+		socket.emit("request-project", {_id: currentPid});		
 	},
 
 	addOne: function (stage) {
