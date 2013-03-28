@@ -1,5 +1,6 @@
 body {
 	overflow-y:scroll;
+	background: #ccc;
 	font-family:"微软雅黑",helvetica;
 	-webkit-user-select:none;``
     -webkit-text-size-adjust:none;
@@ -164,7 +165,7 @@ body,ul,li {
 	font-weight:800;
 	color:#4D4D4D;	
 	
-	padding:4px;
+	padding:0px;
 	list-style-type:none;
 	position: relative;
 	left: 0px;
@@ -521,4 +522,20 @@ body{
 	font-weight:bold;
 	color:#999999;
 	
+}
+
+.toggleFlag {
+	display: block;
+	background:#D1D1D1;	
+	
+	padding:9px;
+	margin:0px;
+	height: 24px;
+	border-radius: 5px 5px 0 0;
+	
+	font-family: "微软雅黑",Helvetica;
+	font-size: 18px;
+	font-weight:600;
+	text-shadow:2px 2px 1px #F0F0F0;
+	color:#666666;
 }

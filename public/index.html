@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-<link rel="stylesheet" type="text/css" href="css/master.css" />
+	<link rel="stylesheet" type="text/css" href="css/master.css" />
 
-<script type="text/javascript" src="js/iscroll.js"></script>
-<script type="text/javascript" src="js/using-iscroll.js"></script>
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/swipe.js"></script>
-<script type="text/javascript" src="js/socket.io.js"></script>
+	<script type="text/javascript" src="js/iscroll.js"></script>
+	<script type="text/javascript" src="js/using-iscroll.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/swipe.js"></script>
+	<script type="text/javascript" src="js/socket.io.js"></script>
+	<script type="text/javascript" src="js/draw.js"></script>
 	<script src="components/jquery/jquery.js"></script>
 	<script src="components/underscore/underscore.js"></script>
 	<script src="components/backbone/backbone.js"></script>
 	<script src="components/backbone.localStorage/backbone.localStorage.js"></script>
-
-
 </head>
 
 
@@ -36,57 +35,8 @@
 			<div id="front-header">			
 				
 				<canvas id="myCanvas" width="140" height="140"></canvas>
-				<script type="text/javascript">
-					function drawCircle(){
-					 var canvas = document.getElementById("myCanvas");
-			
-					var ctx = canvas.getContext("2d");
-					
-					/**/
-					var grd=ctx.createLinearGradient(70,8,70,132);
-					grd.addColorStop(0,"#B0B0B0");
-					grd.addColorStop(1,"white");
-					var angle=0.8;
-					
-					ctx.fillStyle=grd;
-					ctx.strokeStyle="#E1E1E1";
-					ctx.beginPath();
-					ctx.arc(70,70,62,0,2*Math.PI);
-					ctx.fill();
-					ctx.stroke();
-					
-					ctx.beginPath();
-					ctx.moveTo(70,70);
-					ctx.arc(70,70,56,0,2*Math.PI,true);
-					ctx.fill();
-					ctx.stroke();
-					
-					ctx.fillStyle ="YellowGreen";
-					ctx.beginPath();
-					ctx.moveTo(70,70);
-					ctx.arc(70,70,56,0,angle*Math.PI,false);
-					ctx.fill();
-					ctx.stroke();
-					
-					
-					ctx.fillStyle="#eef3e2";
-					ctx.beginPath();
-					ctx.arc(70,70,49,0,2*Math.PI); 	 
-					ctx.fill();
-					ctx.stroke();
-					
-					var percentage=angle/2*100;
-					document.write("<div id=\"percentage\">"+percentage+"</div>"); 
-					var d=new Date()
-					var day=d.getDate()
-					var month=d.getMonth() + 1
-					var year=d.getFullYear()
-
-					document.write("<div id=\"date\">"+ day + "/" + month + "/" + year+"</div>")
-					
-					}
-					drawCircle();
-				</script>
+				<div id="percentage">&nbsp</div>
+				<div id="date">&nbsp</div>
 				<p>%</p>
 				<h id="project-name">未登录</h><br />
 				<span id="front-header-producer">未登录</span><br />
@@ -100,15 +50,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$(".stage-area").hide();
-		$(".stage-header").click(function(){
-			$(this).next(".stage-area").slideToggle("slow");
-		})
-	});
-	</script>
 
 	</div>
 
@@ -168,7 +109,7 @@
 
 
 	<script type="text/template" id="stage-template">						
-		<div class="stage-header" align="left">第<%= index %>阶段</div>	
+		<div class="stage-header" id="stage-header-<%= _id%>" align="left">第<%= index %>阶段</div>	
 		<div class="stage-area" id="stage-area-<%= _id%>">
 			
 		</div>
