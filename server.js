@@ -6,6 +6,7 @@ var db = require('mongoskin').db('mongodb://localhost/moiter');
 
 var express = require('express')
   , http = require('http')
+  , wechat = require('wechat')
   , path = require('path');
 
 var app = express();
@@ -30,6 +31,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+/*
 app.post("/wechat",wechat('test-token',
 	wechat.text(function (message,req,res,next){
 
@@ -50,12 +52,12 @@ app.post("/wechat",wechat('test-token',
 				//验证码为“暗号”
 				if(message.content == "暗号"){
 					var user = {
-						"_id": message.FromUserName;
+						"_id": message.FromUserName,
 						"name" : "",
 						"project_id": [],
 						"isLogin": false,
 						"sex" : "",
-						"about":""
+						"about":"",
 						"password":0000,
 					};
 					db.collection("users").insert(user);
@@ -71,9 +73,10 @@ app.post("/wechat",wechat('test-token',
 		}
 	})
 ));
+*/
 
 //张宏得解析下拿到user_id，然后请求数据
-app.get('/login/:user_id',function (req,res){
+app.get('/:user_id',function (req,res){
 	//socket.emit({"_id":req.params.user_id});
 	console.log(req.params.user_id);
 	res.sendfile(__dirname+'/public/index.html');
@@ -193,7 +196,11 @@ io.sockets.on('connection' , function (socket) {
 													 "isLogin" : result.isLogin,
 													 "name" : result.name,
 													 "sex" : result.sex,
-													 "about" : result.about });
+													 "about" : result.about,
+													 "position" : result.position,
+													 "code" : "success"});
+			else
+				socket.emit("request-user-response", {"code" : "failure"});
 		});
 	});
 
@@ -211,18 +218,18 @@ io.sockets.on('connection' , function (socket) {
 
 	// return the content of project
 	socket.on('request-project', function (data){
-		db.collection('projects').findOne({'_id': data.project_id},function(err,result){
+		db.collection('projects').findOne({'_id': data._id},function(err,result){
 			if(result)
 				socket.emit('request-project-response',result);
 			else
-				socket.emit('request-stage-response',{"code":"failed" , "message":"searching failed"});
+				socket.emit('request-project-response',{"code":"failed" , "message":"searching failed"});
 
 		});
 	});
 
 	//return the content of the stage
 	socket.on('request-stage',function (data){
-		db.collection('stages').findOne({'_id':data._id},function(err,result){
+		db.collection('stages').find({'project_id':data.project_id}).toArray(function(err,result){
 			if(result)
 				socket.emit('request-stage-response',result);
 			else
