@@ -1,17 +1,13 @@
-var myScroll,
+var myScroll,myScroll1,myScroll2,
 	pullDownEl, pullDownOffset,
-	pullUpEl, pullUpOffset,
-    slideLeftE1,slideLeftOffset,
-    slideRightE1,slideRightOffset,
 	generatedCount = 0;
+var width=document.documentElement.clientWidth;
+var place=0;
 
 function pullDownAction () {
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
 		var el, li, i;
 		el = document.getElementById('thelist');
-
-		
-		
 		myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)
 	}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
 }
@@ -27,35 +23,27 @@ function pullUpAction () {
 function loaded() {
 	pullDownEl = document.getElementById('pullDown');
 	pullDownOffset = pullDownEl.offsetHeight;
-	pullUpEl = document.getElementById('pullUp');	
-	pullUpOffset = pullUpEl.offsetHeight;
+	
+	myScroll1 = new iScroll('scroller1',{
+	});
+	
+	myScroll2 = new iScroll('scroller2',{
+	});
 	
 	myScroll = new iScroll('wrapper', {
 		useTransition: true,
 		topOffset: pullDownOffset,
+		hScrollbar:false,
+		vScrollbar:false,
+		
 		onRefresh: function () {
 			if (pullDownEl.className.match('loading')) {
 				pullDownEl.className = '';
 				pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Pull down to refresh...';
-			} else if (pullUpEl.className.match('loading')) {
-				pullUpEl.className = '';
-				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
-			}
+			} 
 		},
 		
 		onScrollMove: function () {
-			/*if(this.distX > 0){
-				$("#wrap").show();
-				$("#wrap2").hide();
-			}
-			if(this.distX < 0){
-				$("#wrap2").show();
-				$("#wrap").hide();
-			}
-			$("#wrapper").css("left", this.pointX);
-			*/
-			
-			
 			if ( this.y > 50 && !pullDownEl.className.match('flip')) {
 				pullDownEl.className = 'flip';
 				pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Release to refresh...';
@@ -64,28 +52,65 @@ function loaded() {
 				pullDownEl.className = '';
 				pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Pull down to refresh...';
 				this.minScrollY = -pullDownOffset;
-			} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
-				pullUpEl.className = 'flip';
-				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
-				this.maxScrollY = this.maxScrollY;
-			} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
-				pullUpEl.className = '';
-				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
-				this.maxScrollY = pullUpOffset;
-			}
+			} 
 		},
+		
 		onScrollEnd: function () {
-			console.log(myScroll);
 			if (pullDownEl.className.match('flip')) {
 				pullDownEl.className = 'loading';
 				pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Loading...';				
 				pullDownAction();	// Execute custom function (ajax call?)
-			} else if (pullUpEl.className.match('flip')) {
-				pullUpEl.className = 'loading';
-				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';				
-				pullUpAction();	// Execute custom function (ajax call?)
+			} 
+			
+			if(this.absDistY < 0.05*width && this.distX > 0.15*width && place==0){
+				$("#wrap").show();
+				$("#wrap2").hide();
+				$("#wrapper").css3Animate({
+					x:"80%",
+					time:"150ms",
+				});
+				place=1;
 			}
-		}
+			
+			if(this.absDistY < 0.05*width && this.distX > 0.15*width && place==-1){
+				$("#wrapper").css3Animate({
+					x:"0",
+					time:"150ms",
+				});
+				place=0;
+			}
+			
+			if(this.absDistY < 0.05*width && this.distX < -0.15*width && place==0){	
+				$("#wrap2").show();
+				$("#wrap").hide();
+				$("#wrapper").css3Animate({
+					x:"-80%",
+					time:"150ms",
+				});
+				place=-1;
+			}
+			
+			if(this.absDistY < 0.05*width && this.distX < -0.15*width && place==1){
+				$("#wrapper").css3Animate({
+					x:"0",
+					time:"150ms",
+				});
+				place=0;
+			}
+		},
+		
+		onTouchEnd: function () {
+			var self = this;
+			if (self.touchEndTimeId) {
+			clearTimeout(self.touchEndTimeId);
+			}
+
+			self.touchEndTimeId = setTimeout(function () {
+			self.absDistX = 0;
+			self.absDistX = 0;
+			}, 10)
+		},
+		
 	});
 	
 	setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);

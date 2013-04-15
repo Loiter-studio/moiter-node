@@ -8,13 +8,13 @@
 
 	<link rel="stylesheet" type="text/css" href="css/master.css" />
 
+	<script type="text/javascript" src="js/jq.mobi.min.js"></script>
+	<script type="text/javascript" src="js/jq.css3animate.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/iscroll.js"></script>
 	<script type="text/javascript" src="js/using-iscroll.js"></script>
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/swipe.js"></script>
 	<script type="text/javascript" src="js/socket.io.js"></script>
 	<script type="text/javascript" src="js/draw.js"></script>
-	<script src="components/jquery/jquery.js"></script>
 	<script src="components/underscore/underscore.js"></script>
 	<script src="components/backbone/backbone.js"></script>
 	<script src="components/backbone.localStorage/backbone.localStorage.js"></script>
@@ -23,37 +23,36 @@
 
 <body>
 
-	<div id="test">
+<div id="wrapper">
 
-	<div id="wrapper">
-
-		<div id="scroller">
-			<div id="pullDown">
-				<span class="pullDownIcon"></span><span class="pullDownLabel"></span>
-			</div>
+	<ul id="scroller">
+		<div id="pullDown">
+			<span class="pullDownIcon"></span><span class="pullDownLabel"></span>
+		</div>
 			
-			<div id="front-header">			
+		<div id="front-header">			
 				
-				<canvas id="myCanvas" width="140" height="140"></canvas>
-				<div id="percentage">&nbsp</div>
-				<div id="date">&nbsp</div>
+			<canvas id="myCanvas" width="140" height="140"></canvas>
+				<div id="percentage">
+					&nbsp
+				</div>
+				<div id="date">
+					&nbsp
+				</div>
 				<p>%</p>
 				<h id="project-name">未登录</h><br />
 				<span id="front-header-producer">未登录</span><br />
 				<span id="front-header-pro-description">未登录</span><br />
-			</div>
-		
-			<div id="stageForm-list"></div>
-	
-			<div id="pullUp">
-				<span class="pullUpIcon"></span><span class="pullUpLabel">eeee</span>
-			</div>
 		</div>
-	</div>
+		
+		<div id="stageForm-list"></div>
+	
+	</ul>
+</div>
 
-	</div>
-
-	<div id="wrap" >
+<div id="myScroll1">
+	<ul id="scroller1">
+		<div id="wrap" >
 		<div id="pro-menu-head">
 			<span class="pro-menu-picture">
 				<a href="www.baidu.com">
@@ -70,9 +69,12 @@
 				<li>我的项目</li>
 			</div>
 		</div>
-
-	</div>
+		</div>
+	</ul>
+</div>
 		
+<div id="myScroll2">
+	<ul id="scroller2">
 	<div id="wrap2">
 		<div id="news-head">
 			<li>消息</li>
@@ -98,6 +100,8 @@
 			<div id="comment-data">09:30 3月22</div>
 		</div>
 	</div>
+	</ul>
+</div>
 
 
 

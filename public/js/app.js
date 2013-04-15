@@ -8,7 +8,7 @@ var currentProject = new app.Project();
 //get user_id from url
 var user_id = "" + window.location.pathname.toString();
 user_id = user_id.substr(1);
-user_id = parseInt(user_id);
+//user_id = parseInt(user_id);
 console.log(user_id);
 
 
@@ -29,7 +29,7 @@ socket.on("request-user-response", function (data) {
 			position: data.position,
 			sex: data.sex,
 			about: data.about,
-			project_id: data.project_id
+			project_task_id: data.project_task_id
 		});
 	
 		console.log(currentUser.toJSON());

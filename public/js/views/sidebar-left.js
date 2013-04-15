@@ -19,12 +19,12 @@ app.LeftSidebarView = Backbone.View.extend({
 		//app.Projects.fetch();
 
 		//get Project List of currentUser
-		var pListLength = currentUser.get("project_id").length;
+		var pListLength = currentUser.get("project_task_id").length;
 		for(var i = 0 ; i < pListLength ; i+=1){		
 			var proj = new app.Project();
 			//console.log(data);
-			proj.set({_id: currentUser.get("project_id")[i].pid, 						
-						name: currentUser.get("project_id")[i].pname, 
+			proj.set({_id: currentUser.get("project_task_id")[i].pid, 						
+						name: currentUser.get("project_task_id")[i].pname, 
 			});
 						
 			var view = new app.ProjectView({model: proj});

@@ -1,22 +1,11 @@
 body {
 	overflow-y:scroll;
-	background: #ccc;
 	font-family:"微软雅黑",helvetica;
-	-webkit-user-select:none;``
+	-webkit-user-select:none;
     -webkit-text-size-adjust:none;
+	background:#212A33;
+	overflow:hidden;
 }
-
-#test { 
-	width:100%; 
-	height:100%; 
-	background:brown; 
-	position:absolute; 
-	left:0px; 
-	top:0px; 
-	z-index:100;
-}
-
-
 
 #myCanvas{
 	position:relative;
@@ -27,12 +16,12 @@ body {
 }
 #wrapper {
 	position:absolute; 
-	z-index:1;
-	top:0px;
+	z-index:2;
 	bottom:0px;
+	height:100%;
 	width:100%;
-	background:#444E58;
-	overflow:auto;
+	overflow:hidden;
+	background:#444E58
 }
 
 #pullDown, #pullUp {
@@ -91,20 +80,13 @@ body,ul,li {
 }
 
 #scroller {
-	position:absolute; z-index:1;
-/*	-webkit-touch-callout:none;*/
+	position:relative; 
+	z-index:2;
 	width:100%;
+	height:100%;
 	padding:0;
+	background:#444E58;
 }
-
-
-
-/**
- *
- * Pull down styles
- *
- */
-
 
 #front-header{
 	display:block;
@@ -165,7 +147,7 @@ body,ul,li {
 	font-weight:800;
 	color:#4D4D4D;	
 	
-	padding:0px;
+	padding:4px;
 	list-style-type:none;
 	position: relative;
 	left: 0px;
@@ -194,7 +176,7 @@ body hr{
 
 
 /**/
-.stage-header{
+.content1-header{
 	display: block;
 	background:#D1D1D1;
 	
@@ -211,7 +193,7 @@ body hr{
 	color:#666666;
 }
 
-.stage-ender{
+.content1-ender{
 	display: block;
 	background: #D1D1D1;
 	
@@ -220,54 +202,65 @@ body hr{
 	height: 4px;
 	border-radius: 0px 0px 5px 5px;
 }
-.stage-text{
-	margin: 5px 10px 5px 20px;
-	padding:5px 10px 5px 0px;
+.content1-text{
+	
 	float: left;
 }
 
 .image{
-	position:relative;
-	top:-8px;
-	width:43px;
-	height:43px;
+	position:relative; 
+	top:0px;
+	width:45px;
+	height:45px;
+	margin:10px 10px 5px 10px;
 	border-radius:50px;
 	
 }
-.stage-date{
+.content1-picture{
 	float:left;
-	font-family: Helvetica;
-	font-size:25px;
-	color:#888888 ;
-	font-weight: bold;
+	position: relative;
+	top:0px;
+	left: 0px;
 }
-.stage-date li{
-	list-style-type:none;
-	font-family:Helvetica;
-	color:#888888;
-	font-size: 15px;
-	font-weight: bold;
+.content1-date{
+	position:relative;
+	top:35px;
+	left:-88px;
+	float:left;
+	font-family:"微软雅黑" Helvetica;
+	font-size:6px;
+	color:#808080 ;
+	font-weight: 600;
+	text-shadow:0px 1px 1px white;
 }
 
-.stage-picture{
-	float:left;
+.content1-data-ending{
 	position: relative;
-	top:10px;
-	left: 10px;
+	top:18px;
+	left:10px;
+	font-family:"微软雅黑" Helvetica;
+	font-size:6px;
+	font-weight:bold;
+	color: #9EB627;
+	text-shadow:0px 1px 1px white;
+	
 }
-.stage-note{
+
+
+.content1-note{
 	float: left;
 	position: relative;
-	top: 10px;
-	left: 20px;
+	top: 13px;
+	left: -4px;
 	
 	font-family: "微软雅黑" Helvetica;
-	font: 30px;
+	font-size:15px;
 	font-weight:bold;
-	color: #888888;
+	color: #666666;
+	text-shadow:0px 1px 2px white;
 	
 }
-.stageForm{
+.content1{
 	display:block;
 	background:#F0F0F0;
 	
@@ -275,11 +268,6 @@ body hr{
 	border-radius:5px;
 }
 
-
-/*the body style*/
-body{
-	overflow: hidden;
-}
 
 /*the content in the index*/
 .text{
@@ -312,6 +300,7 @@ body{
 	height:100%;
 	width:80%;
 	float:left;
+	z-index:1;
 	
 	background:#212A33;
 	display:none;
@@ -378,14 +367,14 @@ body{
 	
 	border-bottom:1px solid #171F27;
 	border-top: 1px solid #293540;
+	
 	background:#36414D;
 }
 
 #pro-menu-head2 li{
 	position: relative;
 	top:6px;
-	left:0px;
-	padding-left: 20px;
+	left:20px;
 	font-family:"微软雅黑" Helvetica;
 	font-size:15px;
 	color:#999999;
@@ -393,7 +382,7 @@ body{
 	
 	text-shadow: 0px 1px 1 black;
 }
-.pro-menu-item{
+#pro-menu-item{
 	display:block;
 	position:relative;
 	height:58px;
@@ -402,14 +391,14 @@ body{
 
 	border-bottom:1px solid #171F27;
 	border-top: 1px solid #293540;
+	
 	background:#212A33;
 }
 
-.pro-menu-item li{
+#pro-menu-item li{
 	position:relative;
 	top:0px;
-	left:0px;
-	padding-left: 20px;
+	left:20px;
 	
 	font-family:'微软雅黑' Helvetica;
 	font-size:18px;
@@ -420,16 +409,13 @@ body{
 	list-style-type:none;
 }
 
-#proj-list-item {
-	cursor: Pointer;
-}
-
 /*the right slides*/
 
 #wrap2{
 	position:absolute;
 	float:right;
 	background:#212A33;
+	z-index:1;
 	
 	margin-left:20%;
 	height:100%;
@@ -522,20 +508,4 @@ body{
 	font-weight:bold;
 	color:#999999;
 	
-}
-
-.toggleFlag {
-	display: block;
-	background:#D1D1D1;	
-	
-	padding:9px;
-	margin:0px;
-	height: 24px;
-	border-radius: 5px 5px 0 0;
-	
-	font-family: "微软雅黑",Helvetica;
-	font-size: 18px;
-	font-weight:600;
-	text-shadow:2px 2px 1px #F0F0F0;
-	color:#666666;
 }
