@@ -141,7 +141,7 @@ io.sockets.on('connection' , function (socket) {
 				   'summary':data.summary};
 
 		db.collection('projects').insert(tmpData);
-
+		/*
 		db.collection('projects').findOne(tmpData,function(err , result){
 			if(result){
 				db.collection('companies').update({'_id':data.company_id},{$addToSet:{project_id:result._id}});
@@ -161,6 +161,7 @@ io.sockets.on('connection' , function (socket) {
 			else
 				socket.emit("create-project-response",{'code':'failed','message':"create project failed"});
 		});
+		*/
 
 	});
 
@@ -192,12 +193,14 @@ io.sockets.on('connection' , function (socket) {
 		db.collection('users').findOne({'_id': data._id},function(err,result){
 			if(result)
 				socket.emit('request-user-response',{"_id" : result._id,
-													 "project_id" : result.project_id,
-													 "isLogin" : result.isLogin,
+													 "project_task_id" : result.project_task_id,	
 													 "name" : result.name,
 													 "sex" : result.sex,
 													 "about" : result.about,
 													 "position" : result.position,
+													 "company" : result.company,
+													 "email" : result.email,
+													 "tel" : result.tel,
 													 "code" : "success"});
 			else
 				socket.emit("request-user-response", {"code" : "failure"});
