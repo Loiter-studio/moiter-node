@@ -192,16 +192,19 @@ io.sockets.on('connection' , function (socket) {
 	socket.on('request-user', function (data) {
 		db.collection('users').findOne({'_id': data._id},function(err,result){
 			if(result)
+			{
 				socket.emit('request-user-response',{"_id" : result._id,
-													 "project_task_id" : result.project_task_id,	
-													 "name" : result.name,
-													 "sex" : result.sex,
-													 "about" : result.about,
-													 "position" : result.position,
-													 "company" : result.company,
-													 "email" : result.email,
-													 "tel" : result.tel,
-													 "code" : "success"});
+											 "project_task_id" : result.project_task_id,	
+											 "name" : result.name,
+											 "sex" : result.sex,
+											 "about" : result.about,
+											 "position" : result.position,
+											 "company" : result.company,
+											 "email" : result.email,
+											 "tel" : result.tel,
+											 "code" : "success"});
+
+			}
 			else
 				socket.emit("request-user-response", {"code" : "failure"});
 		});

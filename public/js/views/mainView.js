@@ -21,8 +21,8 @@ app.MainView = Backbone.View.extend({
 		//app.Stages.fetch();
 		
 		//request the newest project info and show
-		var pListLength = currentUser.get("project_id").length;
-		var currentPid = currentUser.get("project_id")[pListLength-1].pid;
+		var pListLength = currentUser.get("project_task_id").length;
+		var currentPid = currentUser.get("project_task_id")[pListLength-1];
 		socket.emit("request-project", {_id: currentPid});		
 	},
 
